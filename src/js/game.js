@@ -40,6 +40,19 @@
             this.layer.resizeWorld();
             // this.layer.debug = true;
 
+            // text
+            var text =
+                    'Repositorio: https://github.com/alejandroarroyo/meetup-construct2\n' +
+                    'Slides clásicas: https://slides.com/alejandroarroyo/construct2/ \n' +
+                    'Este juego online: http://bit.ly/1xgheuI\n' +
+                    'Video: próximamente',
+                textStyle = {
+                    font: '22px arial',
+                    fill: '#000',
+                    align: 'left'
+                };
+
+            this.game.add.text(80, 620, text, textStyle);
 
             // player
             function setupPlayer(player) {
@@ -61,7 +74,7 @@
             // keyboard controls
             function createControls(gameContext) {
                 gameContext.controls = {
-                    'left': gameContext.game.input.keyboard.addKey(65), //A
+                    'left': gameContext.game.input.keyboard.addKey(65), // A
                     'right': gameContext.game.input.keyboard.addKey(68), //D
                     'fire': gameContext.game.input.keyboard.addKey(75), // K
                     'jump': gameContext.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
@@ -353,7 +366,7 @@
             console.log(this.game.scale.width);
             if (this.game.scale.width === 800) {
                 this.game.scale.setShowAll();
-                // this.game.scale.startFullScreen(true); // full screen but not responsive
+                this.game.scale.startFullScreen(true); // full screen but not responsive
             } else {
                 this.game.scale.setupScale(800, 600);
                 this.game.scale.stopFullScreen();
@@ -361,7 +374,7 @@
             this.game.scale.refresh();
         },
         render: function() {
-            // this.game.debug.spriteInfo(this.player, 150, 30);
+            this.game.debug.spriteInfo(this.player, 150, 30);
             // this.game.debug.body(this.dartboards.getAt(1));
             // this.game.debug.body(this.player);
             // this.game.debug.body(this.abuls.getAt(0));
