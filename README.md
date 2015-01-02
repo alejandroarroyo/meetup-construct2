@@ -1,7 +1,7 @@
 Meetup de Construct2
 =====================
 
-Repositorio usado para la charla del meetup [videogamearmy](http://www.meetup.com/videogamearmy/events/219134263/) de introducción a [PhaserJS](http://docs.phaser.io/).
+Repositorio usado para la charla del meetup [videogamearmy](http://www.meetup.com/videogamearmy/events/219134263/) de introducción a [Construct2](https://www.scirra.com/construct2).
 
 El material de este proyecto sustituye a las slides clásicas usadas en una charla. No obstante se pueden consultar las slides convencionales.
 
@@ -22,7 +22,7 @@ Es necesario tener instalado:
 ##Arrancar proyecto
 
 1. Clonar repositorio, también es posible descargarlo en .[zip](https://github.com/alejandroarroyo/meetup-construct2/archive/master.zip)
-    
+
     + `git clone https://github.com/alejandroarroyo/meetup-construct2`
 
     + `cd meetup-construct2`
@@ -30,9 +30,9 @@ Es necesario tener instalado:
 2. Instalar dependencias
 
     + NodeJS: `npm install`
-    
+
     + Bower: `bower install`
-    
+
 3. Arrancar con gulp: `gulp`
 
 4. En el navegador ir a  [http://localhost:9000](http://localhost:9000)

@@ -114,7 +114,7 @@
             }
             this.chests = this.game.add.group();
             this.chests.create(1900, 1700, 'chest');
-            this.chests.create(5100, 1700, 'chest');
+            // this.chests.create(5100, 1700, 'chest');
             this.chests.forEach(setupChest, this);
             // bullets
             function setupBullet(bullet) {
@@ -305,10 +305,10 @@
             this.game.add.tween(chestTweened)
                 .to({
                     x: chestTweened.x - 15
-                }, 1000, Phaser.Easing.Cubic.Out)
+                }, 900, Phaser.Easing.Back.In)
                 .to({
                     x: chestTweened.x + 15
-                }, 1000, Phaser.Easing.Cubic.Out, true, 0, false)
+                }, 900, Phaser.Easing.Back.In)
                 .start()
                 .loop();
 
@@ -353,7 +353,7 @@
             console.log(this.game.scale.width);
             if (this.game.scale.width === 800) {
                 this.game.scale.setShowAll();
-                this.game.scale.startFullScreen(true); // full screen but not responsive
+                // this.game.scale.startFullScreen(true); // full screen but not responsive
             } else {
                 this.game.scale.setupScale(800, 600);
                 this.game.scale.stopFullScreen();
