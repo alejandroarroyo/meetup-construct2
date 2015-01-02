@@ -54,23 +54,24 @@
             }
 
             this.player = this.game.add.sprite(400, 200, 'marco');
-            // this.player = this.game.add.sprite(7400, 1400, 'marco');
             this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
             setupPlayer(this.player);
             this.game.camera.follow(this.player);
 
-            // controls
+            // keyboard controls
             function createControls(gameContext) {
                 gameContext.controls = {
                     'left': gameContext.game.input.keyboard.addKey(65), //A
                     'right': gameContext.game.input.keyboard.addKey(68), //D
-                    'down': gameContext.game.input.keyboard.addKey(83), //S
-                    'up': gameContext.game.input.keyboard.addKey(87), //W
                     'fire': gameContext.game.input.keyboard.addKey(75), // K
                     'jump': gameContext.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
                 };
             }
             createControls(this);
+
+            // xbox controls
+            this.game.input.gamepad.start();
+            this.pad = this.game.input.gamepad.pad1;
 
             // enemies
             // abul-abbas
@@ -85,15 +86,6 @@
             }
             this.abuls = this.game.add.group();
             // this.abuls.create(460, 390, 'abul');
-            // this.abuls.create(720, 180, 'abul');
-            // this.abuls.create(880, 530, 'abul');
-            // this.abuls.create(750, 530, 'abul');
-            // this.abuls.create(1220, 340, 'abul');
-            // this.abuls.create(1190, 400, 'abul');
-            // this.abuls.create(1440, 420, 'abul');
-            // this.abuls.create(1600, 420, 'abul');
-            // this.abuls.create(1500, 530, 'abul');
-            // this.abuls.create(1720, 530, 'abul');
             this.abuls.forEach(setupAbul, this);
 
             // dartboards
@@ -141,37 +133,31 @@
 
             // audio
             this.game.sound.stopAll();
-            // this.music = this.game.add.audio('music');
-            this.pokemonMusic = this.game.add.audio('pokemon', 0.7, false);
+            this.pokemonMusic = this.game.add.audio('pokemon', 0.5, false);
             this.zeldaSound = this.game.add.audio('zeldaChest', 1, false, 2);
-
-            // this.music.play('', 0, 1, true);
             this.shootSound = this.game.add.audio('shootSound');
 
+            // teleport keys [0-9]
+            this.game.input.keyboard.addKey(48).onDown.add(function () {this.player.x = 400;this.player.y = 200;}, this); // 0
+            this.game.input.keyboard.addKey(49).onDown.add(function () {this.player.x = 1270;this.player.y = 275;}, this); // 1
+            this.game.input.keyboard.addKey(50).onDown.add(function () {this.player.x = 2880;this.player.y = 375;}, this);
+            this.game.input.keyboard.addKey(51).onDown.add(function () {this.player.x = 3500;this.player.y = 1000;}, this);
+            this.game.input.keyboard.addKey(52).onDown.add(function () {this.player.x = 1830;this.player.y = 950;}, this);
+            this.game.input.keyboard.addKey(53).onDown.add(function () {this.player.x = 1780;this.player.y = 1880;}, this);
+            this.game.input.keyboard.addKey(54).onDown.add(function () {this.player.x = 3620;this.player.y = 1830;}, this);
+            this.game.input.keyboard.addKey(55).onDown.add(function () {this.player.x = 4830;this.player.y = 1780;}, this);
+            this.game.input.keyboard.addKey(56).onDown.add(function () {this.player.x = 6790;this.player.y = 1880;}, this);
+            this.game.input.keyboard.addKey(57).onDown.add(function () {this.player.x = 7530;this.player.y = 1780;}, this);
 
-
-            // // buttons
-            // this.buttons = this.game.add.group();
-            // this.buttons.add(this.game.add.button(20, 20, 'button2', function () {
-            //     var stateName = this[1],
-            //         context = this[0];
-            //     context.game.state.start(stateName);
-            // }, [this, 'menu'], 2, 0, 2));
-            // this.buttons.add(this.game.add.button(70, 20, 'button2', function () {
-            //     var stateName = this[1],
-            //         context = this[0];
-            //     context.game.state.start(stateName);
-            // }, [this, 'demo'], 3, 1, 3));
-
-            // this.buttons.getAt(0).fixedToCamera = true;
-            // this.buttons.getAt(1).fixedToCamera = true;
         },
 
         update: function() {
+            this.input.onDown.add(this.changeScreenSize, this);
+
             this.game.physics.arcade.collide(this.player, this.layer);
             this.game.physics.arcade.collide(this.abuls, this.layer);
             this.game.physics.arcade.collide(this.chests, this.layer);
-            this.abuls.forEach(function (abul) {
+            this.abuls.forEach(function(abul) {
                 if (this.game.physics.arcade.distanceBetween(abul, this.player) < 250) {
                     this.game.physics.arcade.accelerateToObject(abul, this.player, 120, 120, 0);
                     // accelerateToObject(objeto, destino, vel, xVelMax, yVelMax)
@@ -192,43 +178,56 @@
                 this.pokemonMusic.stop();
             }
 
+            this.playerActions();
+
+        },
+        gamepadButtonIsDown: function(button, value) {
+            if (button.buttonCode === Phaser.Gamepad.XBOX360_A) {
+                this.player.body.velocity.x = -150;
+            } else if (button.buttonCode === Phaser.Gamepad.XBOX360_B) {
+                this.player.body.velocity.x = -150;
+            } else if (button.buttonCode === Phaser.Gamepad.XBOX360_X) {
+                this.player.body.velocity.x = -150;
+            } else if (button.buttonCode === Phaser.Gamepad.XBOX360_Y) {
+                this.player.body.velocity.x = -150;
+            }
+
+        },
+        playerActions: function() {
             this.player.body.velocity.x = 0;
-            if (this.controls.left.isDown) {
+            if (this.controls.left.isDown || this.pad.isDown(Phaser.Gamepad.XBOX360_DPAD_LEFT)) {
                 this.player.body.velocity.x = -150;
                 this.player.animations.play('move');
                 if (this.player.scale.x > 0) {
-                    this.player.scale.x = - 1;
+                    this.player.scale.x = -1;
                     this.player.body.setSize(18, 35, 0, 6);
                 }
-            } else if (this.controls.right.isDown) {
+            } else if (this.controls.right.isDown || this.pad.isDown(Phaser.Gamepad.XBOX360_DPAD_RIGHT)) {
                 this.player.body.velocity.x = 150;
                 this.player.animations.play('move');
                 if (this.player.scale.x < 0) {
                     this.player.scale.x = 1;
                     this.player.body.setSize(18, 35, -6, 6);
                 }
-            } else if (this.controls.fire.isDown && this.player.alive) {
+            } else if ((this.controls.fire.isDown || this.pad.isDown(Phaser.Gamepad.XBOX360_RIGHT_TRIGGER)) && this.player.alive) {
                 this.player.animations.play('fire');
                 this.fireBullet(this);
             } else {
                 this.player.animations.play('standby');
             }
 
-            if (this.controls.jump.isDown && this.player.body.onFloor()) {
-                this.player.body.velocity.y = - 250;
+            if ((this.controls.jump.isDown || this.pad.isDown(Phaser.Gamepad.XBOX360_A)) && this.player.body.onFloor()) {
+                this.player.body.velocity.y = -250;
             }
-
-            this.input.onDown.add(this.changeScreenSize, this);
-
         },
-        playerIsDamaged: function (player) {
+        playerIsDamaged: function(player) {
             player.damage(1);
         },
-        enemyIsDamaged: function (enemy, bullet) {
+        enemyIsDamaged: function(enemy, bullet) {
             enemy.damage(1);
             bullet.kill();
         },
-        dartboardIsDamaged: function (dartboard, bullet) {
+        dartboardIsDamaged: function(dartboard, bullet) {
             var dartboardIndex = this.dartboards.getIndex(dartboard);
 
             if (dartboardIndex === 0) {
@@ -283,7 +282,7 @@
 
             bullet.kill();
         },
-        openChest: function (player, chest) {
+        openChest: function(player, chest) {
             var chestIndex = this.chests.getIndex(chest),
                 chestTweened;
 
@@ -336,10 +335,10 @@
 
             this.zeldaSound.play();
         },
-        destroyBullet: function (bullet) {
+        destroyBullet: function(bullet) {
             bullet.kill();
         },
-        fireBullet: function (context) {
+        fireBullet: function(context) {
             if (context.game.time.now > context.player.fireTimer) {
                 var bullet = context.bullets.getFirstExists(false);
                 if (bullet) {
@@ -350,14 +349,14 @@
                 }
             }
         },
-        changeScreenSize: function () {
+        changeScreenSize: function() {
+            console.log(this.game.scale.width);
             if (this.game.scale.width === 800) {
                 this.game.scale.setShowAll();
                 this.game.scale.startFullScreen(true); // full screen but not responsive
             } else {
                 this.game.scale.setupScale(800, 600);
                 this.game.scale.stopFullScreen();
-
             }
             this.game.scale.refresh();
         },
