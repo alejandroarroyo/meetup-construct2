@@ -1,0 +1,10 @@
+{
+  "name": "slides",
+  "version": "0.0.0",
+  "authors": [
+    ""
+  ],
+  "dependencies": {
+    "phaser-official": "2.1.2"
+  }
+}
