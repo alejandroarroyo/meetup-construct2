@@ -168,6 +168,8 @@
             this.game.input.keyboard.addKey(56).onDown.add(function () {this.player.x = 6790;this.player.y = 1880;}, this);
             this.game.input.keyboard.addKey(57).onDown.add(function () {this.player.x = 7530;this.player.y = 1780;}, this);
 
+            this.game.input.keyboard.addKey(27).onDown.add(this.setWindowScreen, this); // ESC
+
         },
 
         update: function() {
@@ -369,14 +371,20 @@
             }
         },
         changeScreenSize: function() {
-            console.log(this.game.scale.width);
             if (this.game.scale.width === 800) {
-                this.game.scale.setShowAll();
-                this.game.scale.startFullScreen(true); // full screen but not responsive
+                this.setFullScreen();
             } else {
-                this.game.scale.setupScale(800, 600);
-                this.game.scale.stopFullScreen();
+                this.setWindowScreen();
             }
+        },
+        setFullScreen: function () {
+            this.game.scale.setShowAll();
+            this.game.scale.startFullScreen(true); // full screen but not responsive
+            this.game.scale.refresh();
+        },
+        setWindowScreen: function () {
+            this.game.scale.setupScale(800, 600);
+            this.game.scale.stopFullScreen();
             this.game.scale.refresh();
         },
         render: function() {
