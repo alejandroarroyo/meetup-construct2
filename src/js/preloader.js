@@ -28,6 +28,7 @@
       this.load.image('chest', 'assets/scenario/chest.png');
       this.load.spritesheet('allSlides', 'assets/scenario/all-slides.png', 800, 600);
       this.load.spritesheet('allSlides2', 'assets/scenario/all-slides2.png', 800, 600);
+      this.load.spritesheet('marketing', 'assets/scenario/marketing.png', 480, 400);
 
       // player
       this.load.spritesheet('marco', 'assets/character/marco-rossi.png', 55, 50);

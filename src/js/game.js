@@ -32,6 +32,12 @@
             this.allSlides.create(6500, 1400, 'allSlides2', 7).scale.setTo(0.75, 0.75);
             this.allSlides.create(7400, 1400, 'allSlides2', 8).scale.setTo(0.75, 0.75);
 
+            // marketing
+            this.marketings = this.game.add.group();
+            this.marketings.create(900, 1290, 'marketing', 0).scale.setTo(0.6, 0.6);
+            this.marketings.create(4500, 1730, 'marketing', 1).scale.setTo(0.8, 0.8);
+
+
             // map
             this.map = this.game.add.tilemap('tilemap');
             this.map.addTilesetImage('tiles');
@@ -127,7 +133,7 @@
             }
             this.chests = this.game.add.group();
             this.chests.create(1900, 1700, 'chest');
-            // this.chests.create(5100, 1700, 'chest');
+            this.chests.create(5100, 1700, 'chest');
             this.chests.forEach(setupChest, this);
             // bullets
             function setupBullet(bullet) {
@@ -374,7 +380,7 @@
             this.game.scale.refresh();
         },
         render: function() {
-            this.game.debug.spriteInfo(this.player, 150, 30);
+            // this.game.debug.spriteInfo(this.player, 150, 30);
             // this.game.debug.body(this.dartboards.getAt(1));
             // this.game.debug.body(this.player);
             // this.game.debug.body(this.abuls.getAt(0));
