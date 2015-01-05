@@ -89,8 +89,17 @@
             createControls(this);
 
             // xbox controls
+            function createPadControls(gameContext) {
+                gameContext.padControls = {
+                    'left': Phaser.Gamepad.XBOX360_DPAD_LEFT,
+                    'right': Phaser.Gamepad.XBOX360_DPAD_RIGHT,
+                    'fire': Phaser.Gamepad.XBOX360_RIGHT_TRIGGER,
+                    'jump': Phaser.Gamepad.XBOX360_A
+                };
+            }
             this.game.input.gamepad.start();
             this.pad = this.game.input.gamepad.pad1;
+            createPadControls(this);
 
             // enemies
             // abul-abbas
@@ -135,6 +144,7 @@
             this.chests.create(1900, 1700, 'chest');
             this.chests.create(5100, 1700, 'chest');
             this.chests.forEach(setupChest, this);
+
             // bullets
             function setupBullet(bullet) {
                 this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
@@ -202,42 +212,30 @@
             this.playerActions();
 
         },
-        gamepadButtonIsDown: function(button, value) {
-            if (button.buttonCode === Phaser.Gamepad.XBOX360_A) {
-                this.player.body.velocity.x = -150;
-            } else if (button.buttonCode === Phaser.Gamepad.XBOX360_B) {
-                this.player.body.velocity.x = -150;
-            } else if (button.buttonCode === Phaser.Gamepad.XBOX360_X) {
-                this.player.body.velocity.x = -150;
-            } else if (button.buttonCode === Phaser.Gamepad.XBOX360_Y) {
-                this.player.body.velocity.x = -150;
-            }
-
-        },
         playerActions: function() {
             this.player.body.velocity.x = 0;
-            if (this.controls.left.isDown || this.pad.isDown(Phaser.Gamepad.XBOX360_DPAD_LEFT)) {
+            if (this.controls.left.isDown || this.pad.isDown(this.padControls.left)) {
                 this.player.body.velocity.x = -150;
                 this.player.animations.play('move');
                 if (this.player.scale.x > 0) {
                     this.player.scale.x = -1;
                     this.player.body.setSize(18, 35, 0, 6);
                 }
-            } else if (this.controls.right.isDown || this.pad.isDown(Phaser.Gamepad.XBOX360_DPAD_RIGHT)) {
+            } else if (this.controls.right.isDown || this.pad.isDown(this.padControls.right)) {
                 this.player.body.velocity.x = 150;
                 this.player.animations.play('move');
                 if (this.player.scale.x < 0) {
                     this.player.scale.x = 1;
                     this.player.body.setSize(18, 35, -6, 6);
                 }
-            } else if ((this.controls.fire.isDown || this.pad.isDown(Phaser.Gamepad.XBOX360_RIGHT_TRIGGER)) && this.player.alive) {
+            } else if ((this.controls.fire.isDown || this.pad.isDown(this.padControls.fire)) && this.player.alive) {
                 this.player.animations.play('fire');
                 this.fireBullet(this);
             } else {
                 this.player.animations.play('standby');
             }
 
-            if ((this.controls.jump.isDown || this.pad.isDown(Phaser.Gamepad.XBOX360_A)) && this.player.body.onFloor()) {
+            if ((this.controls.jump.isDown || this.pad.isDown(this.padControls.jump)) && this.player.body.onFloor()) {
                 this.player.body.velocity.y = -250;
             }
         },
