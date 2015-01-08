@@ -36,6 +36,7 @@
             this.marketings = this.game.add.group();
             this.marketings.create(900, 1290, 'marketing', 0).scale.setTo(0.6, 0.6);
             this.marketings.create(4500, 1730, 'marketing', 1).scale.setTo(0.8, 0.8);
+            this.marketings.create(950, 380, 'marketing', 2).scale.setTo(0.8, 0.8);
 
 
             // map
