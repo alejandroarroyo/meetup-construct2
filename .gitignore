@@ -1,5 +1,5 @@
 .DS_Store
 *.db
 slides-videogame/node_modules/
-slides-videogame/bower_components/
+slides-videogame/src/bower_components/
 slides-videogame/dist/
