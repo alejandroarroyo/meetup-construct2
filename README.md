@@ -3,7 +3,11 @@ Meetup de Construct2
 
 Repositorio usado para la charla del meetup [videogamearmy](http://www.meetup.com/videogamearmy/events/219134263/) de introducción a [Construct2](https://www.scirra.com/construct2).
 
-El material de este proyecto sustituye a las slides clásicas usadas en una charla. No obstante se pueden consultar las slides convencionales.
+Incluye:
+
++ Slides en formato videojuego
+
++ Ejemplo construct2 de un juego plataformero
 
 [Acceso a las slides aquí](http://slides.com/alejandroarroyo/construct2#/)
 
@@ -25,7 +29,7 @@ Es necesario tener instalado:
 
     + `git clone https://github.com/alejandroarroyo/meetup-construct2`
 
-    + `cd meetup-construct2`
+    + `cd meetup-construct2/slides-construct2`
 
 2. Instalar dependencias
 
