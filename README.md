@@ -23,7 +23,7 @@ Es necesario tener instalado:
 
 4. [GIT](http://git-scm.com/) para clonar el repositorio
 
-##Arrancar proyecto
+##Arrancar proyecto de slides-videojuego
 
 1. Clonar repositorio, también es posible descargarlo en .[zip](https://github.com/alejandroarroyo/meetup-construct2/archive/master.zip)
 
@@ -37,10 +37,15 @@ Es necesario tener instalado:
 
     + Bower: `bower install`
 
-3. Arrancar con gulp: `gulp`
+3. Arrancar slides-videojuego con gulp: `gulp`
 
-4. En el navegador ir a  [http://localhost:9000](http://localhost:9000)
+4. En el navegador ir a [http://localhost:9000](http://localhost:9000)
 
+##Arrancar proyecto construct2-platform-example (solo para windows)
+
+1. Instalar [Construct2](https://www.scirra.com/construct2).
+
+2. Abrir el proyecto construct2-platform-example/master-slug.capx
 
 > Alejandro Arroyo Duque
 
